@@ -4,6 +4,13 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Link } from "react-router-dom";
 import './style.css'
 
+const onFinish = (values) => {
+    console.log('Success:', values);
+  };
+const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo);
+};
+
 const Login = () =>(
     <div className="backgroud">
         <div className="login">
@@ -13,6 +20,8 @@ const Login = () =>(
             <Form className="login_form"     
                 labelCol={{ span: 6 }}
                 wrapperCol={{ span: 16 }}
+                onFinish={onFinish}
+                onFinishFailed={onFinishFailed}
             >
 
                 <Form.Item name="username" label="用户名"  rules={[{ required: true, message: 'Please input your username!' }]}>
