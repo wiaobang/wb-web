@@ -7,12 +7,14 @@ import {
 } from "react-router-dom";
 import './style.css'
 
+
+
 const router = createHashRouter(
 
   [
     {
       path: "/",
-      element: <Register />,
+      element: <Outlet />,
     
     children:[
 
@@ -22,6 +24,10 @@ const router = createHashRouter(
     },
     {
       path: "/login",
+      element: <Login />,
+    },
+    {
+      path: "/",
       element: <Login />,
     },
   ]
