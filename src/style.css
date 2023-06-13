@@ -1,0 +1,56 @@
+.backgroud{
+    padding: 0;
+    margin: 0 auto;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    flex-direction: column;
+
+    text-align: center;
+    background: linear-gradient(180deg, #a0d7e7, #6c5dd3);
+    height: 750px;
+}
+
+.login{
+    margin: auto;
+    width: 450px;
+    height: 400px;
+    justify-content: center;
+}
+
+.login_header , .register_header{
+
+    font-size: 15px;
+    font-family: Arial,"Microsoft YaHei";
+    font-weight: bold;
+    color: #151830;
+}
+
+.login_form, .register_form{
+
+    background: #f2f3f7;
+    border-radius: 20px;
+
+    text-align: center;
+    justify-content: center;
+    padding: 51px 60px;
+
+}
+
+.login_button{
+    width: 220px;
+    height: 40px;
+    background: #6c5dd3;
+    border-radius: 12px;
+    justify-content: center;
+}
+
+
+.login_form_forgot{
+   float: right;
+   margin-right: 40px;
+}
+
+.number_select{
+    font-size: 4px;
+}
