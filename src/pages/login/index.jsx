@@ -1,17 +1,68 @@
 import React from "react";
 import {Form, Input, Button, Checkbox} from "antd";
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Link } from "react-router-dom";
-import './style.css'
+import { Link, useNavigate } from "react-router-dom";
+import {useRequest} from 'ahooks';
+import md5 from 'md5';
+import axios from "axios";
+// import './style.css'
 
-const onFinish = (values) => {
-    console.log('Success:', values);
-  };
-const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-};
 
-const Login = () =>(
+const Login =  () =>{
+
+    const navigate = useNavigate();
+    const onFinishFailed = (errorInfo) => {
+        console.log('Failed:', errorInfo);
+    };
+
+    const onFinish = (values) => {
+        console.log('Success:', values);
+      };
+    // const fet = (data) =>{
+    //     let {username, password } = data;
+    //     axios({
+    //         url: 'http://localhost:3000/login',
+    //         method: 'GET',
+    //         params: {
+    //             username: username,
+    //             password: password,
+    //         }
+    //         }).then((res)=>console.log(res.data));
+    // }
+
+    let { loading, run, cancel } = useRequest(
+        data => {
+            let {username, password } = data;
+
+           return axios({
+            url: 'http://localhost:3000/login',
+            method: 'GET',
+            params: {
+                username: username,
+                password: password,
+            },
+            });
+        },
+        {
+            manual: true,
+            onSuccess: (result) => {
+            const {token} = result.data;
+        
+            if (token) {
+                // 添加全局请求头token
+                console.log(token)
+                localStorage.setItem('Authorization', token);
+                axios.defaults.headers.common['Authorization'] = token;
+                navigate('/home');
+            }
+            },
+            onError: () => {
+            console.log('onError');
+            },
+        }
+        );
+    
+    return(
     <div className="backgroud">
         <div className="login">
             <div className="login_header">
@@ -20,7 +71,8 @@ const Login = () =>(
             <Form className="login_form"     
                 labelCol={{ span: 6 }}
                 wrapperCol={{ span: 16 }}
-                onFinish={onFinish}
+                onFinish={values=>run(values)}
+                // onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
             >
 
@@ -50,5 +102,5 @@ const Login = () =>(
         </div>
     </div>
 )
-
+}
 export default Login;

@@ -1,0 +1,12 @@
+.home{
+    display: flex;
+    flex-direction: column;
+    /* text-align: center; */
+    align-items: center;
+}
+
+/* h1 {
+    text-align: center;
+   
+    border: 2px blue;
+} */

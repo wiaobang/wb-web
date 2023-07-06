@@ -1,7 +1,7 @@
 import React from "react";
-import {Form, Input, Button, Checkbox, Select} from "antd";
+import {Form, Input, Button, Checkbox, Select, InputNumber} from "antd";
 import { Link } from "react-router-dom";
-import './style.css'
+// import './style.css'
 
 const { Option } = Select;
 
@@ -39,14 +39,14 @@ const Register = ()=>(
                 <Input />
             </Form.Item>
 
-            <Form.Item name="telephone" label="手机号码" rules={[{ required: true, message: 'Please input your telephone!' }, {type:'number', message: '请输入正确的手机号码！'},
+            <Form.Item name="telephone" label="手机号码"  validateTrigger='onBlur' validateFirst={true} rules={[{ required: true, message: 'Please input your telephone!' },
          {validator:(_,value)=>{
             if (value.length == 11 ){
                 return Promise.resolve()
             }
-            return Promise.reject(new Error('请输入正确的号码！'))
+            return Promise.reject(new Error('手机号码位数不正确！'))
          }}]}>
-                <Input />
+                <Input  />
             </Form.Item>
 
             <Form.Item name="password" label="密码" hasFeedback rules={[{ required: true, message: 'Please input your password!' }]}>

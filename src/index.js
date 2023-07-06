@@ -4,18 +4,20 @@ import './index.css';
 // import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-import App from './App';
+ import { RouterProvider, createBrowserRouter,outerProvider } from 'react-router-dom';
+ import './style.css'
+ // import Home from './pages/home'
+ import routes from "./route";
 
-import Register from './Register';
-
-
+const router = createBrowserRouter(routes)
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
- // <React.StrictMode>
-    <App />
- // </React.StrictMode>
+
+      <RouterProvider router = {router}/>
+
+
 );
 
 // If you want to start measuring performance in your app, pass a function
