@@ -2,6 +2,7 @@ import Login from "../pages/login"
 import Register from "../pages/register"
 import Home from '../pages/home'
 import PersonContent from "../pages/person";
+import FrontPage from "../pages/front-page";
 import { Children } from "react";
 import UpdataSecret from "../pages/updata-secret/updata-secret";
 
@@ -29,7 +30,7 @@ const routes = [
         },
         {
             path:'',
-            element:<PersonContent/>
+            element:<FrontPage/>
         },
         {
             path:'updataSecret',

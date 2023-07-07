@@ -1,8 +1,9 @@
-.home{
-    display: flex;
-    flex-direction: column;
-    /* text-align: center; */
-    align-items: center;
+.person-info{
+    margin-top: 18px;
+}
+
+.home-username{
+    margin-left: 12px;
 }
 
 /* h1 {

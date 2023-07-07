@@ -1,5 +1,5 @@
-import React from "react";
-import { Empty, Avatar,Layout, Menu, Button, Space, Tabs } from 'antd';
+import React, { useState } from "react";
+import { Empty, Avatar,Layout, Menu, Button, Space, Tabs , Col, Row} from 'antd';
 import {MenuFoldOutlined, UploadOutlined, UserOutlined, VideoCameraOutlined,} from '@ant-design/icons';
 import './index.css'
 
@@ -9,7 +9,8 @@ import {  useNavigate } from "react-router-dom";
 
 const Home = () =>{ 
     const { Header,Content, Footer, Sider } = Layout;
-
+    
+    const [isShowTab, changeShowTable] = useState(false);
     const headerStyle = {
         textAlign: 'center',
         color: '#fff',
@@ -23,7 +24,8 @@ const Home = () =>{
         minHeight: 800,
         lineHeight: '120px',
         color: '#000',
-        // backgroundColor: '#108ee9',
+        justifyContent: 'center',
+        backgroundColor: '#fff',
       };
       const siderStyle = {
         textAlign: 'center',
@@ -44,34 +46,50 @@ const Home = () =>{
             if(key==='2') {navigate('updataSecret')}
       }
 
+      const onMenuClick = (e)=>{
+        if(e.key==='1') {navigate('')
+        changeShowTable(false)}
+        if(e.key==='2') {navigate('personContent')
+        changeShowTable(true)}
+      }
+
     return(
-        <Space
-        direction="vertical"
-        style={{
-          width: '100%',
-        }}
-        size={[0, 48]}
-      >
+    <Space
+    direction="vertical"
+    style={{
+        width: '100%',
+    }}
+    size={[0, 48]}
+    >
     <Layout>
       <Layout>
         <Sider>
-            <Header style={headerStyle}>Header</Header>
+            <Header style={headerStyle}>Hello</Header>
         </Sider>
-        <Content>
-            <Button
-                type="text"
-                icon={<MenuFoldOutlined />}
-                style={{
-                fontSize: '16px',
-                width: 64,
-                height: 64,
-                }}
-            />
+        <Content style={{justifyContent:'space-between'}}>
+            <Row>
+                <Col span={1}><Button
+                    type="text"
+                    icon={<MenuFoldOutlined />}
+                    style={{
+                    fontSize: '16px',
+                    width: 64,
+                    height: 64,
+                    
+                    }}
+                /></Col>
+                <Col span={2} offset={20}>
+                <div className="person-info"> 
+                    <Avatar icon={<UserOutlined />} />
+                    <span className="home-username">username</span>
+                </div></Col>
+                
+            </Row>
         </Content>
       </Layout>
       <Layout hasSider>
       <Sider style={siderStyle}>
-      <Menu
+      <Menu   onClick={onMenuClick}
               mode="inline"
               defaultSelectedKeys={['2']}
               defaultOpenKeys={['sub1']}
@@ -84,9 +102,11 @@ const Home = () =>{
                 {key:'2', label:'个人中心'}
               ]}
       />
+      
 
       </Sider>
-    <Layout>
+      <Layout>
+        { isShowTab &&
        <Header style={{
         color: '#000',
         height: 64,
@@ -101,15 +121,16 @@ const Home = () =>{
                 {key:'2', label:'修改密码'}
             ]}
             onChange={onTabChange}/>
-      </Header>
+      </Header>}
       <Content style={contentStyle}>
               {/* <PersonContent/> */}
               {/* <UpdataSecret/> */}
               <Outlet/>
       </Content>
+      <Footer style={footerStyle}>designed by React & Ant Design ©2023</Footer>
     </Layout>  
       </Layout>
-      <Footer style={footerStyle}>designed by React & Ant Design ©2023</Footer>
+
     </Layout>
         </Space>)
     
