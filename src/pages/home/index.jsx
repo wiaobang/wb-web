@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Empty, Avatar,Layout, Menu, Button, Space, Tabs , Col, Row} from 'antd';
-import {MenuFoldOutlined, UploadOutlined, UserOutlined, VideoCameraOutlined,} from '@ant-design/icons';
+import {Avatar,Layout, Menu, Button, Space, Tabs , Col, Row} from 'antd';
+import {MenuFoldOutlined, UserOutlined, VideoCameraOutlined,} from '@ant-design/icons';
 import './index.css'
 
 import {List} from 'antd';
 import { Outlet } from "react-router-dom";
-import {  useNavigate, useLocation, useLoaderData } from "react-router-dom";
+import {  useNavigate} from "react-router-dom";
+
 
 // export getUserName= ()=>{
 //   const location = useLocation();
@@ -29,6 +30,7 @@ const Home = () =>{
     // const homeUserName = username? username:'游客';
     
     const [isShowTab, changeShowTable] = useState(false);
+
     const headerStyle = {
         textAlign: 'center',
         color: '#fff',
@@ -66,7 +68,8 @@ const Home = () =>{
 
       const onMenuClick = (e)=>{
         if(e.key==='1') {navigate('')
-        changeShowTable(false)}
+        changeShowTable(false)
+      }
         if(e.key==='2') {navigate('home/personContent')
         changeShowTable(true)}
       }

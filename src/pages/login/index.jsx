@@ -1,5 +1,5 @@
 import React from "react";
-import {Form, Input, Button, Checkbox} from "antd";
+import {Form, Input, Button, Checkbox, message} from "antd";
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Link, useNavigate } from "react-router-dom";
 import {useRequest} from 'ahooks';
@@ -46,7 +46,7 @@ const Login =  () =>{
         {
             manual: true,
             onSuccess: (result,params) => {
-            const {token} = result.data;
+            const {token,code,msg} = result.data;
             // console.log(params[0])
             const {username} = params[0];
             if (token) {
@@ -56,6 +56,10 @@ const Login =  () =>{
                 axios.defaults.headers.common['Authorization'] = token;
                 navigate('/');
                 localStorage.setItem('username',username)
+                return
+            }
+            if (code===500){
+                message.error(msg)
             }
             },
             onError: () => {
