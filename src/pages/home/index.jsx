@@ -5,31 +5,17 @@ import './index.css'
 
 import {List} from 'antd';
 import { Outlet } from "react-router-dom";
-import {  useNavigate} from "react-router-dom";
+import {  useNavigate,useLocation} from "react-router-dom";
 
-
-// export getUserName= ()=>{
-//   const location = useLocation();
-//   const username = location.state.username;
-//   return {username}
-// }
 
 const Home = () =>{ 
     const { Header,Content, Footer, Sider } = Layout;
 
     const navigate = useNavigate();
-
-    // const [homeUserName, setUserName] = useState('游客')
-    // console.log('111111111111111')
-    // const location = useLocation();
-    // const username= location?.state?.username;
-
-    // useEffect(()=>{setUserName(username)},[])
+    const location = useLocation();
 
     const homeUserName = localStorage.getItem('username')?localStorage.getItem('username'):'游客'
-    // const homeUserName = username? username:'游客';
-    
-    const [isShowTab, changeShowTable] = useState(false);
+
 
     const headerStyle = {
         textAlign: 'center',
@@ -67,11 +53,12 @@ const Home = () =>{
       }
 
       const onMenuClick = (e)=>{
-        if(e.key==='1') {navigate('')
-        changeShowTable(false)
+        if(e.key==='1') {
+        navigate('/')
       }
-        if(e.key==='2') {navigate('home/personContent')
-        changeShowTable(true)}
+        if(e.key==='2') {
+        navigate('/home/personContent')
+      }
       }
 
     return(
@@ -113,7 +100,7 @@ const Home = () =>{
       <Menu   onClick={onMenuClick}
               mode="inline"
               defaultSelectedKeys={['1']}
-              defaultOpenKeys={['sub1']}
+              selectedKeys={[location.pathname==='/'?'1':'2']}
               theme="dark"
               style={{
                 height: '100%',
@@ -127,7 +114,7 @@ const Home = () =>{
 
       </Sider>
       <Layout>
-        { isShowTab &&
+        { location.pathname!='/' &&
        <Header style={{
         color: '#000',
         height: 64,
@@ -137,6 +124,7 @@ const Home = () =>{
       }}>
 
         <Tabs defaultActiveKey="1" 
+        activeKey={location.pathname==='/home/personContent'?'1':'2'}
         items={[
                 {key:'1', label:'个人资料'},
                 {key:'2', label:'修改密码'}
@@ -144,8 +132,6 @@ const Home = () =>{
             onChange={onTabChange}/>
       </Header>}
       <Content style={contentStyle}>
-              {/* <PersonContent/> */}
-              {/* <UpdataSecret/> */}
               <Outlet/>
       </Content>
       <Footer style={footerStyle}>designed by React & Ant Design ©2023</Footer>
