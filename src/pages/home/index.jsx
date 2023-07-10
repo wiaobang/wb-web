@@ -1,14 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Empty, Avatar,Layout, Menu, Button, Space, Tabs , Col, Row} from 'antd';
 import {MenuFoldOutlined, UploadOutlined, UserOutlined, VideoCameraOutlined,} from '@ant-design/icons';
 import './index.css'
 
 import {List} from 'antd';
 import { Outlet } from "react-router-dom";
-import {  useNavigate } from "react-router-dom";
+import {  useNavigate, useLocation, useLoaderData } from "react-router-dom";
+
+// export getUserName= ()=>{
+//   const location = useLocation();
+//   const username = location.state.username;
+//   return {username}
+// }
 
 const Home = () =>{ 
     const { Header,Content, Footer, Sider } = Layout;
+
+    const navigate = useNavigate();
+
+    // const [homeUserName, setUserName] = useState('游客')
+    // console.log('111111111111111')
+    // const location = useLocation();
+    // const username= location?.state?.username;
+
+    // useEffect(()=>{setUserName(username)},[])
+
+    const homeUserName = localStorage.getItem('username')?localStorage.getItem('username'):'游客'
+    // const homeUserName = username? username:'游客';
     
     const [isShowTab, changeShowTable] = useState(false);
     const headerStyle = {
@@ -38,18 +56,18 @@ const Home = () =>{
         color: '#fff',
         backgroundColor: 'RGB(0,40,44)',
       };
-
-      const navigate = useNavigate();
+      
+      // setUserName(username);
 
       const onTabChange = (key) =>{
-            if(key==='1') {navigate('personContent')}
-            if(key==='2') {navigate('updataSecret')}
+            if(key==='1') {navigate('home/personContent')}
+            if(key==='2') {navigate('home/updataSecret')}
       }
 
       const onMenuClick = (e)=>{
         if(e.key==='1') {navigate('')
         changeShowTable(false)}
-        if(e.key==='2') {navigate('personContent')
+        if(e.key==='2') {navigate('home/personContent')
         changeShowTable(true)}
       }
 
@@ -81,7 +99,7 @@ const Home = () =>{
                 <Col span={2} offset={20}>
                 <div className="person-info"> 
                     <Avatar icon={<UserOutlined />} />
-                    <span className="home-username">username</span>
+                    <span className="home-username">{homeUserName}</span>
                 </div></Col>
                 
             </Row>
@@ -91,7 +109,7 @@ const Home = () =>{
       <Sider style={siderStyle}>
       <Menu   onClick={onMenuClick}
               mode="inline"
-              defaultSelectedKeys={['2']}
+              defaultSelectedKeys={['1']}
               defaultOpenKeys={['sub1']}
               theme="dark"
               style={{

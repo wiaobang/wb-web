@@ -1,9 +1,21 @@
-import { UserOutlined } from '@ant-design/icons';
-import { Descriptions} from 'antd';
+import { Descriptions, Button} from 'antd';
 import './index.css'
+import { redirect, Form } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
+import React from "react";
 
-const personContent = () =>
+
+const PersonContent = () =>
 {
+
+    const navigate = useNavigate();
+
+    const logOut=()=>{
+        localStorage.removeItem('Authorization')
+        localStorage.removeItem('username')
+        navigate('/login')
+    }
+    
 return(
     <div className='person-center'>
         {/* <Avatar size={64} icon={<UserOutlined />} /> */}
@@ -22,9 +34,10 @@ return(
             </Descriptions.Item>
             <Descriptions.Item label="个人介绍">无</Descriptions.Item>
         </Descriptions>
-       
+
+        <Button type="primary" onClick={()=>logOut()}>退出登录</Button>
     </div>
 )
 }
 
-export default personContent;
+export default PersonContent;

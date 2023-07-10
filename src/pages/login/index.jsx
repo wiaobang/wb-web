@@ -32,7 +32,7 @@ const Login =  () =>{
 
     let { loading, run, cancel } = useRequest(
         data => {
-            let {username, password } = data;
+            const {username, password } = data;
 
            return axios({
             url: 'http://localhost:3000/login',
@@ -45,15 +45,17 @@ const Login =  () =>{
         },
         {
             manual: true,
-            onSuccess: (result) => {
+            onSuccess: (result,params) => {
             const {token} = result.data;
-        
+            // console.log(params[0])
+            const {username} = params[0];
             if (token) {
                 // 添加全局请求头token
                 console.log(token)
                 localStorage.setItem('Authorization', token);
                 axios.defaults.headers.common['Authorization'] = token;
-                navigate('/home');
+                navigate('/');
+                localStorage.setItem('username',username)
             }
             },
             onError: () => {
